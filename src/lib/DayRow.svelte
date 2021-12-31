@@ -23,6 +23,7 @@
 	.grid-container-day {
 		display: grid;
 		grid-template-columns: repeat(30, auto);
+		justify-items: center;
 		border: 1px solid red;
 	}
 
