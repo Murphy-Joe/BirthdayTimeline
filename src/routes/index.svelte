@@ -4,19 +4,21 @@
 	import { Months } from './../models/months';
 	import { calendar } from './../stores';
 
+	let unitsPerYear = 4;
 	let unitsPerMonth = 30;
-	let innerWidth = 0;
+	let innerWidth;
 </script>
 
 <svelte:window bind:innerWidth />
 
-<div class="top-level">
-	<MonthRow {Months} {innerWidth} />
-	<DayRow {unitsPerMonth} {innerWidth} />
+<div class="calendar-view">
+	<MonthRow {unitsPerYear} {Months} {innerWidth} />
+	<DayRow {unitsPerYear} {unitsPerMonth} {innerWidth} />
 </div>
 
 <!-- <div>{JSON.stringify($calendar)}</div> -->
 <div>{$calendar.January['1']}</div>
+<div>{Months[1]}</div>
 
 <style>
 	div :global(.grid-container-month) {
@@ -24,5 +26,9 @@
 		grid-template-columns: repeat(12, auto);
 		justify-items: center;
 		border: 1px solid purple;
+	}
+
+	.calendar-view {
+		overflow-x: scroll;
 	}
 </style>
