@@ -1,8 +1,8 @@
 <script lang="ts">
-	// import { Months } from './../models/months';
-	export let unitsPerMonth;
-	export let unitsPerYear;
-	export let innerWidth;
+	import { Months } from './../models/months';
+	export let unitsPerMonth: number;
+	export let unitsPerYear: number;
+	export let innerWidth: number;
 </script>
 
 <div class="grid-container-month">

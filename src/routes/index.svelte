@@ -4,15 +4,15 @@
 	import { Months } from './../models/months';
 	import { calendar } from './../stores';
 
-	let unitsPerYear = 4;
-	let unitsPerMonth = 30;
-	let innerWidth;
+	const unitsPerYear = 4;
+	const unitsPerMonth = 30;
+	let innerWidth: number;
 </script>
 
 <svelte:window bind:innerWidth />
 
 <div class="calendar-view">
-	<MonthRow {unitsPerYear} {Months} {innerWidth} />
+	<MonthRow {unitsPerYear} {innerWidth} />
 	<DayRow {unitsPerYear} {unitsPerMonth} {innerWidth} />
 </div>
 
