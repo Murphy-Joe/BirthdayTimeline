@@ -18,7 +18,7 @@ export interface ICalendar {
 
 export const cal: ICalendar = {
     January: { days: 31 },
-    February: { days: 28 },
+    February: { days: 29 },
     March: { days: 30 },
     April: { days: 31 },
     May: { days: 30 },
