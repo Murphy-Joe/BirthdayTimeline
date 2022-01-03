@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { createBirthdayRecord } from './../service/detaService';
+
 	import { Months, MonthsList } from './../models/months';
 	import { calendarByMonth } from './../stores';
 
@@ -11,9 +13,10 @@
 		Number(prop)
 	);
 
-	function handleSubmit() {
-		alert(`picked ${selectedMonthName} ${selectedDay}`);
-		// detaService.createBirthdayRecord({bdayName, selectedMonthValue, selectedDay})
+	async function handleSubmit() {
+		// alert(`picked ${selectedMonthName} ${selectedDay}`);
+		const resp = await createBirthdayRecord(bdayName, selectedMonthValue, selectedDay);
+		console.log(resp.data);
 	}
 </script>
 
