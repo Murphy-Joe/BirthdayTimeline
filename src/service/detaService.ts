@@ -15,7 +15,7 @@ export async function createBirthdayRecord(
     )
 }
 
-export async function getsomething(): Promise<string> {
+export async function getsomething(): Promise<any> {
     return await axios.get(
         `${BASE_URL}/test`,
         { headers: { "X-API-Key": DETA_API_KEY } }
