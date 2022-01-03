@@ -13,6 +13,13 @@
 </div>
 
 <style>
+	:global(.grid-container-month) {
+		display: grid;
+		grid-template-columns: repeat(12, auto);
+		justify-items: center;
+		border: 1px solid purple;
+	}
+
 	.month {
 		background-color: aqua;
 		height: 3rem;

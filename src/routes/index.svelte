@@ -24,11 +24,4 @@
 	.calendar-view {
 		overflow-x: scroll;
 	}
-
-	div :global(.grid-container-month) {
-		display: grid;
-		grid-template-columns: repeat(12, auto);
-		justify-items: center;
-		border: 1px solid purple;
-	}
 </style>
