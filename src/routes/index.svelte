@@ -1,9 +1,8 @@
 <script lang="ts">
 	import BirthdayForm from '$lib/BirthdayForm.svelte';
 	import DayRow from '$lib/DayRow.svelte';
-	import DetaGetTest from '$lib/DetaGetTest.svelte';
 	import MonthRow from '$lib/MonthRow.svelte';
-	// import { getsomething } from './../service/detaService';
+	import { getsomething } from './../service/detaService';
 
 	const unitsPerYear = 4;
 	let innerWidth: number;
@@ -20,11 +19,9 @@
 
 <BirthdayForm />
 
-<!-- {#await getsomething() then value}
-	<p>the value is {value}</p>
-{/await} -->
-
-<DetaGetTest />
+{#await getsomething() then value}
+	<p>the value is {value.data}</p>
+{/await}
 
 <style>
 	.calendar-view {
