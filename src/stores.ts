@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
-import { cal } from './models/calendar';
+import { CalendarByMonth } from './models/calendar';
 
-export const calendar = writable(cal);
+const calByMonth = new CalendarByMonth();
+export const calendar = writable(calByMonth);
