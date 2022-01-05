@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { createBirthdayRecord } from './../service/detaService';
+	import { createBirthdayRecord } from '$service/detaService';
 
-	import { Months, MonthsList } from './../models/months';
-	import { calendarByMonth } from './../stores';
+	import { Months, MonthsList } from '$models/months';
+	import { calendarByMonth } from '$stores';
 
 	let selectedMonthValue: number;
 	let selectedDay: number;
