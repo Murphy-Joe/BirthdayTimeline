@@ -2,7 +2,8 @@
 	import BirthdayForm from '$lib/BirthdayForm.svelte';
 	import DayRow from '$lib/DayRow.svelte';
 	import MonthRow from '$lib/MonthRow.svelte';
-	import { getsomething } from './../service/detaService';
+	import ScratchForm from '$lib/scratchForm.svelte';
+	import { getsomething } from '$service/detaService';
 
 	const unitsPerYear = 4;
 	let innerWidth: number;
@@ -18,6 +19,7 @@
 <div>Gimme a Birthday</div>
 
 <BirthdayForm />
+<ScratchForm />
 
 {#await getsomething() then value}
 	<p>the value is {value.data}</p>
