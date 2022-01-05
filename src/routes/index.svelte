@@ -3,7 +3,7 @@
 	import DayRow from '$lib/DayRow.svelte';
 	import MonthRow from '$lib/MonthRow.svelte';
 	import ScratchForm from '$lib/scratchForm.svelte';
-	import { getsomething } from '$service/detaService';
+	import { getsomething } from './../service/detaService';
 
 	const unitsPerYear = 4;
 	let innerWidth: number;

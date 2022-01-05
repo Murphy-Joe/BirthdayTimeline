@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Months } from '$models/months';
+	import { Months } from './../models/months';
 	export let innerWidth: number;
 	export let unitsPerYear: number;
 </script>
