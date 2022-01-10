@@ -1,41 +1,47 @@
 <script lang="ts">
-	import { createBirthdayRecord } from './../service/detaService';
+	import { birthdayBookStore } from './../stores';
 
-	import { Months, MonthsList } from './../models/months';
-	import { calendarByMonth } from './../stores';
+	let name: string;
+	let mo: number;
+	let day: number;
 
-	let selectedMonthValue: number;
-	let selectedDay: number;
-	let bdayName: string;
-
-	$: selectedMonthName = Months[selectedMonthValue] || 'January';
-	$: daysInSelectedMonth = Object.keys($calendarByMonth[selectedMonthName]).filter((prop) =>
-		Number(prop)
-	);
-
-	async function handleSubmit() {
-		// alert(`picked ${selectedMonthName} ${selectedDay}`);
-		const resp = await createBirthdayRecord(bdayName, selectedMonthValue, selectedDay);
-		console.log(resp.data);
+	async function addBirthdays() {
+		// udpate the store, let the store update the database
+		birthdayBookStore.update((bb) => {
+			bb.calendar[`${name}${mo}${day}`] = { name: name, month: mo, day: day };
+			return bb;
+		});
+		console.log($birthdayBookStore);
 	}
 </script>
 
-<form on:submit|preventDefault={handleSubmit}>
-	<input bind:value={bdayName} placeholder="Name" />
-	<select bind:value={selectedMonthValue}>
-		{#each MonthsList as month}
-			<option value={Months[month]}>
-				{month.substring(0, 3)}
-			</option>
-		{/each}
-	</select>
+<form on:submit|preventDefault={addBirthdays}>
+	<input bind:value={name} class="name" placeholder="Name" />
+	<input bind:value={mo} class="date" placeholder="mo" />
+	<input bind:value={day} class="date" placeholder="day" />
 
-	<select bind:value={selectedDay}>
-		{#each daysInSelectedMonth as day}
-			<option value={day}>
-				{day}
-			</option>
-		{/each}
-	</select>
 	<button type="submit"> Submit </button>
 </form>
+
+<style>
+	input {
+		border: none;
+		border-left: 0.2em solid blue;
+		border-radius: 2px;
+
+		background-color: rgb(192, 214, 214);
+	}
+
+	input:focus {
+		border: none;
+		background-color: yellow;
+	}
+
+	.date {
+		width: 2em;
+	}
+
+	.name {
+		width: 8em;
+	}
+</style>
