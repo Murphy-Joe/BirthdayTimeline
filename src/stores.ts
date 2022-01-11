@@ -20,6 +20,12 @@ const bdayBookDefault: BirthdayBook = {
 export const bdayBookStore = writable(bdayBookDefault)
 if (browser) {
     bdayBookStore.subscribe((updatedBook) =>
-        localStorage.setItem("bdayBook", JSON.stringify(updatedBook)))
-    // need to json parse / stringify
+    {
+        if (updatedBook.key == ''){
+            localStorage.removeItem("bdayBook")
+        }
+        else {
+            localStorage.setItem("bdayBook", JSON.stringify(updatedBook))
+        }
+    })
 }

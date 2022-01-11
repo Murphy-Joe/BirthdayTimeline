@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { variables } from './../utils/variables';
-import type { BirthdayBook } from './../models/calendar'
 import { get } from 'svelte/store';
 import { bdayBookStore } from './../stores';
 

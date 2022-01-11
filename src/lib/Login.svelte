@@ -13,6 +13,7 @@
 		name = '';
 		email = '';
 		bdayBookStore.set({ key: email, userName: name, calendar: {} });
+		
 	}
 </script>
 
