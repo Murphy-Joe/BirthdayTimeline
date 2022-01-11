@@ -1,4 +1,4 @@
-import { cal } from "src/models/calendar"
+import { CalendarByMonth } from "src/models/calendar"
 import { Months } from "src/models/months"
 
 export class DateConverter {
@@ -7,7 +7,7 @@ export class DateConverter {
         for (let i = 1; i <= dt.getMonth(); i++) {
             const month = Months[i]
             console.log(month)
-            daysBefore += cal[month]['days']
+            daysBefore += CalendarByMonth[month]['days']
         }
         return daysBefore
     }
