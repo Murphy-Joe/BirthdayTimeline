@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { birthdayBookStore } from './../stores';
+import { get } from 'svelte/store';
+
+	import { bdayBookStore } from './../stores';
 
 	let name: string;
 	let mo: number;
@@ -7,11 +9,11 @@
 
 	async function addBirthdays() {
 		// udpate the store, let the store update the database
-		birthdayBookStore.update((bb) => {
+		bdayBookStore.update((bb) => {
 			bb.calendar[`${name}${mo}${day}`] = { name: name, month: mo, day: day };
 			return bb;
 		});
-		console.log($birthdayBookStore);
+		console.log(`bday bookstore after bday form submit: ${JSON.stringify($bdayBookStore)}`);
 	}
 </script>
 

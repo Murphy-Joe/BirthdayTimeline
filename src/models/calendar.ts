@@ -30,21 +30,20 @@ export class CalendarByDays {
     }
 }
 
-export interface Calendar {
-    [id: string]: {
-        name: string
-        month: number
-        day: number
-    }
+export interface CalendarItem {
+    name: string
+    month: number
+    day: number
+}
 
+export interface Calendar {
+    [id: string]: CalendarItem
 }
 export interface BirthdayBook {
     key: string
     userName: string
-    calendar?: Calendar
+    calendar: Calendar
 }
-
-
 
 
 // export interface IMonthObject {

@@ -1,24 +1,18 @@
-<script context="module">
+<!-- <script context="module">
 	export async function load({ fetch }) {
-		if (get(emailStore)) {
-			// const resp = await fetch(`${variables.baseURL}/calendar/${get(emailStore)}`, {
-			// 	headers: { 'X-API-Key': variables.apiKey }
-			// });
-			// console.log(`resp type: ${typeof resp}`);
+		if (get(bdayBookStore).key != '') {
 			const resp = await loadCalendar(fetch);
 			const bb = await resp?.json();
-			const cal = bb?.calendar;
-			console.log(`res inside load: ${JSON.stringify(cal)}`);
-			calendarStore.set(JSON.stringify(cal));
+			console.log(`bb inside load: ${JSON.stringify(bb)}`);
+			bdayBookStore.set(bb);
 			return {};
 		}
 		return {};
 	}
-</script>
-
+</script> -->
 <script lang="ts">
 	import { get } from 'svelte/store';
-	import { birthdayBookStore, calendarStore, emailStore } from './../stores';
+	import { bdayBookStore } from './../stores';
 	import DayRow from '$lib/DayRow.svelte';
 	import MonthRow from '$lib/MonthRow.svelte';
 	import ScratchForm from '$lib/BirthdayForm.svelte';
@@ -27,8 +21,6 @@
 
 	const unitsPerYear = 4;
 	let innerWidth: number;
-
-	const bbs = $birthdayBookStore;
 </script>
 
 <svelte:window bind:innerWidth />
@@ -44,10 +36,10 @@
 
 <ScratchForm />
 
-{#if $birthdayBookStore.calendar}
+{#if $bdayBookStore.calendar}
 	<div class="calendar-data">
 		<p>result</p>
-		{#each Object.values($birthdayBookStore.calendar) as bday}
+		{#each Object.values($bdayBookStore.calendar) as bday}
 			{bday['name']} : {bday['month']}/{bday['day']} <br />
 		{/each}
 	</div>
