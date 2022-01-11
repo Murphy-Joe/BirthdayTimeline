@@ -16,12 +16,13 @@ import { get } from 'svelte/store';
 		// console.log(`calendar length: ${Object.keys(get(bdayBookStore).calendar).length}`);
 		// console.log(`calendar populated: ${Object.keys(get(bdayBookStore).calendar).length != 0}`);	
 		if (calResp.data) {
-			if (Object.keys(get(bdayBookStore).calendar).length == 0){
+			const emptyCalendar = Object.keys(get(bdayBookStore).calendar).length == 0
+			if (emptyCalendar){
 				// console.log(`calResp data in status Ok block: ${JSON.stringify(calResp.data)}`)
 				bdayBookStore.set({ key: email, userName: name, calendar: calResp.data })
 			}
 			else {
-				const updateResp = await UpdateCalendar();
+				UpdateCalendar();
 				// console.log(`updateResp data: ${updateResp.data}`);	
 				// console.log(`store cal ${JSON.stringify(get(bdayBookStore).calendar)}`)
 				// console.log(`resp data cal ${JSON.stringify(calResp.data.calendar)}`)
@@ -29,10 +30,9 @@ import { get } from 'svelte/store';
 				const mergedCal = Object.assign(get(bdayBookStore).calendar, calResp.data.calendar)
 				bdayBookStore.set({ key: email, userName: name, calendar: mergedCal })
 			}
-			
 		}
 		else {
-			await createBase();
+			createBase();
 		}
 	}
 
