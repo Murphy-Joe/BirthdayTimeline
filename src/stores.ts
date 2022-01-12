@@ -16,8 +16,12 @@ const bdayBookDefault: BirthdayBook = {
     userName: '',
     calendar: {}
 }
+const bdayBookFromStorage: BirthdayBook = 
+    browser ? 
+    JSON.parse(localStorage.getItem("bdayBook")) ?? bdayBookDefault: 
+    bdayBookDefault
 
-export const bdayBookStore = writable(bdayBookDefault)
+export const bdayBookStore = writable<BirthdayBook>(bdayBookFromStorage)
 if (browser) {
     bdayBookStore.subscribe((updatedBook) =>
     {
