@@ -10,8 +10,10 @@
 		<div class="grid-container-day">
 			{#each { length: unitsPerMonth } as _, i}
 				<div class="bday-symbol" style="width:{innerWidth / unitsPerYear / unitsPerMonth}px">
+					<!-- CalendarByMonth[month][day].length times symbol -->
 					*
 					<br />
+					<!-- CalendarByMonth[month][day].join('<br>') -->
 					joe
 				</div>
 			{/each}
