@@ -10,6 +10,14 @@ const DETA_API_KEY = variables.apiKey as string
 
 
 export async function loadCalendar(customfetch): Promise<any> {
+    // if (get(bdayBookStore).key != '') {
+		// 	const resp = await loadCalendar(fetch);
+		// 	const bb = await resp?.json();
+		// 	console.log(`bb inside load: ${JSON.stringify(bb)}`);
+		// 	bdayBookStore.set(bb);
+		// 	return {};
+		// }
+		// return {};
     return await customfetch(`${BASE_URL}/calendar/${get(bdayBookStore).key}`, {
         headers: { 'X-API-Key': DETA_API_KEY }
     });
