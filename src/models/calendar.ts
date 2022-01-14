@@ -4,12 +4,12 @@ export class CalendarByMonth {
         Object.keys(this).forEach((month) => {
             const numDays = this[month].days
             for (let i = 0; i < numDays; i++) {
-                this[month][i + 1] = ['yo']
+                this[month][i + 1] = []
             }
         })
     }
     January = { days: 31 }
-    February = { days: 28 }
+    February = { days: 29 }
     March = { days: 31 }
     April = { days: 30 }
     May = { days: 31 }
