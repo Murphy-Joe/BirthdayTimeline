@@ -1,11 +1,13 @@
 <script lang="ts">
-	import { bdayBookStore } from './../stores';
+	import { bdayBookStore, calendarByMonth } from './../stores';
 	import DayRow from '$lib/DayRow.svelte';
 	import MonthRow from '$lib/MonthRow.svelte';
 	import ScratchForm from '$lib/BirthdayForm.svelte';
 	import Login from '$lib/Login.svelte';
 
-	const unitsPerYear = 4;
+	// console.log(JSON.stringify($calendarByMonth))
+
+	const monthsToDispay = 4;
 	let innerWidth: number;
 </script>
 
@@ -14,8 +16,8 @@
 <Login />
 
 <div class="calendar-view">
-	<MonthRow {unitsPerYear} {innerWidth} />
-	<DayRow {unitsPerYear} {innerWidth} />
+	<MonthRow monthsToDisplay={monthsToDispay} {innerWidth} />
+	<DayRow monthsToDisplay={monthsToDispay} {innerWidth} />
 </div>
 
 <div>Gimme a Birthday</div>

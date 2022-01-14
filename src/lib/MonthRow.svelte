@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { Months } from './../models/months';
 	export let innerWidth: number;
-	export let unitsPerYear: number;
+	export let monthsToDisplay: number;
 </script>
 
 <div class="grid-container-month">
 	{#each { length: 12 } as _, i}
-		<div class="month" style="width:{innerWidth / unitsPerYear}px">
+		<div class="month" style="width:{innerWidth / monthsToDisplay}px">
 			{Months[i + 1]}
 		</div>
 	{/each}

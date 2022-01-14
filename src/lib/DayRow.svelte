@@ -1,8 +1,17 @@
 <script lang="ts">
+import { DateConverter } from "./../utils/dateConverter";
+
 import { calendarByMonth } from "./../stores";
 
-	export let unitsPerYear: number
+	export let monthsToDisplay: number
 	export let innerWidth: number
+
+	let lastBday = 0
+
+	function setLastBday(month: number, day:number){
+		lastBday = DateConverter.DayOfYear(month, day)
+	}
+	// day of year, if statement for within 7
 
 	const bdayNamesArraysOfMonth = (month: string): Array<any> =>
 		Object.values($calendarByMonth[month]).filter(val =>
@@ -11,13 +20,15 @@ import { calendarByMonth } from "./../stores";
 </script>
 
 <div class="grid-container-month">
-	{#each Object.keys($calendarByMonth) as monthName}
+	{#each Object.keys($calendarByMonth) as monthName, monthZeroIdx}
 		<div class="grid-container-day">
-			{#each bdayNamesArraysOfMonth(monthName) as bdayNames}
-				<div class="bday-symbol" style="width:{innerWidth / unitsPerYear / $calendarByMonth[monthName]["days"]}px">
+			{#each bdayNamesArraysOfMonth(monthName) as bdayNames, dayZeroIdx}
+				<div class="bday-symbol" style="width:{innerWidth / monthsToDisplay / $calendarByMonth[monthName]["days"]}px">
 					{"*".repeat(bdayNames.length)}
 					<br />
-					{@html bdayNames.join("<br>")}
+					{#each bdayNames as bdayName}
+						 {bdayName}<br>
+					{/each}
 				</div>
 			{/each}
 		</div>
