@@ -1,20 +1,23 @@
 <script lang="ts">
-	export let unitsPerYear: number;
-	export let innerWidth: number;
+import { calendarByMonth } from "./../stores";
 
-	const unitsPerMonth = 30;
+	export let unitsPerYear: number
+	export let innerWidth: number
+
+	const bdayNamesArraysOfMonth = (month: string): Array<any> =>
+		Object.values($calendarByMonth[month]).filter(val =>
+			Array.isArray(val) )
+
 </script>
 
 <div class="grid-container-month">
-	{#each { length: 12 } as _, i}
+	{#each Object.keys($calendarByMonth) as monthName}
 		<div class="grid-container-day">
-			{#each { length: unitsPerMonth } as _, i}
-				<div class="bday-symbol" style="width:{innerWidth / unitsPerYear / unitsPerMonth}px">
-					<!-- CalendarByMonth[month][day].length times symbol -->
-					*
+			{#each bdayNamesArraysOfMonth(monthName) as bdayNames}
+				<div class="bday-symbol" style="width:{innerWidth / unitsPerYear / $calendarByMonth[monthName]["days"]}px">
+					{"*".repeat(bdayNames.length)}
 					<br />
-					<!-- CalendarByMonth[month][day].join('<br>') -->
-					joe
+					{@html bdayNames.join("<br>")}
 				</div>
 			{/each}
 		</div>
