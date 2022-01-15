@@ -1,25 +1,31 @@
 
+export const DaysPerMonth = {
+    january: { days: 31 },
+    february: { days: 29 },
+    march: { days: 31 },
+    april: { days: 30 },
+    may: { days: 31 },
+    june: { days: 30 },
+    july: { days: 31 },
+    august: { days: 31 },
+    september: { days: 30 },
+    october: { days: 31 },
+    november: { days: 30 },
+    december: { days: 31 }
+}
 export class CalendarByMonth {
     constructor() {
-        Object.keys(this).forEach((month) => {
-            const numDays = this[month].days
+        // initialize this from CalendarByDays and get rid of days key
+        // that way it can be directly reactive, maybe
+        Object.keys(DaysPerMonth).forEach((month) => {
+            this[month] = {}
+            const numDays = DaysPerMonth[month].days
             for (let i = 0; i < numDays; i++) {
                 this[month][i + 1] = []
             }
         })
     }
-    January = { days: 31 }
-    February = { days: 29 }
-    March = { days: 31 }
-    April = { days: 30 }
-    May = { days: 31 }
-    June = { days: 30 }
-    July = { days: 31 }
-    August = { days: 31 }
-    September = { days: 30 }
-    October = { days: 31 }
-    November = { days: 30 }
-    December = { days: 31 }
+
 }
 
 export class CalendarByDays {
@@ -29,7 +35,6 @@ export class CalendarByDays {
         }
     }
 }
-
 export interface CalendarItem {
     name: string
     month: number

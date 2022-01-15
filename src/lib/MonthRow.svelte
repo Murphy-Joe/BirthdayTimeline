@@ -15,7 +15,8 @@
 <style>
 	:global(.grid-container-month) {
 		display: grid;
-		grid-template-columns: repeat(12, auto);
+		/* grid-template-columns: repeat(12, auto); */
+		grid-template-columns: 31fr 29fr 31fr 30fr 31fr 30fr 31fr 31fr 30fr 31fr 30fr 31fr;
 		justify-items: center;
 		border: 1px solid purple;
 	}

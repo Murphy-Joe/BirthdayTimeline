@@ -1,29 +1,24 @@
-<script lang="ts">
+<script lang="js">
 import { DateConverter } from "./../utils/dateConverter";
 
-import { calendarByMonth } from "./../stores";
+import { calendarByMonth, calByMonth } from "./../stores";
+import { DaysPerMonth } from "./../models/calendar";
 
-	export let monthsToDisplay: number
-	export let innerWidth: number
+	export let monthsToDisplay
+	export let innerWidth
 
 	let lastBday = 0
-
-	function setLastBday(month: number, day:number){
+	function setLastBday(month, day){
 		lastBday = DateConverter.DayOfYear(month, day)
 	}
-	// day of year, if statement for within 7
-
-	const bdayNamesArraysOfMonth = (month: string): Array<any> =>
-		Object.values($calendarByMonth[month]).filter(val =>
-			Array.isArray(val) )
 
 </script>
 
 <div class="grid-container-month">
-	{#each Object.keys($calendarByMonth) as monthName, monthZeroIdx}
+	{#each Object.keys(calByMonth) as monthName, monthZeroIdx}
 		<div class="grid-container-day">
-			{#each bdayNamesArraysOfMonth(monthName) as bdayNames, dayZeroIdx}
-				<div class="bday-symbol" style="width:{innerWidth / monthsToDisplay / $calendarByMonth[monthName]["days"]}px">
+			{#each Object.values($calendarByMonth[monthName]) as bdayNames, dayZeroIdx}
+				<div class="bday-symbol" style="width:{innerWidth / monthsToDisplay / DaysPerMonth[monthName]["days"]}px">
 					{"*".repeat(bdayNames.length)}
 					<br />
 					{#each bdayNames as bdayName}
@@ -38,7 +33,7 @@ import { calendarByMonth } from "./../stores";
 <style>
 	.grid-container-day {
 		display: grid;
-		grid-template-columns: repeat(30, auto);
+		grid-template-columns: repeat(31, auto);
 		justify-items: center;
 		border: 1px solid red;
 	}

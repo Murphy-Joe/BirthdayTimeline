@@ -1,3 +1,4 @@
+/* eslint-disable no-self-assign */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { browser } from "$app/env";
@@ -8,7 +9,7 @@ import { Months } from "./models/months";
 const calByDay = new CalendarByDays()
 export const calendarByDay = writable(calByDay)
 
-const calByMonth = new CalendarByMonth();
+export let calByMonth = new CalendarByMonth();
 export const calendarByMonth = writable(calByMonth);
 
 const bdayBookDefault: BirthdayBook = {
@@ -25,8 +26,11 @@ export const bdayBookStore = writable<BirthdayBook>(bdayBookFromStorage)
 if (browser) {
     bdayBookStore.subscribe((updatedBook) =>
     {
+        // Translate bdayBook calendar (by ID) to calByMonth (day date)
         Object.values(updatedBook.calendar).forEach(bdayObj => 
-            calByMonth[Months[bdayObj.month]][bdayObj.day].push(bdayObj.name))
+            {calByMonth[Months[bdayObj.month]][bdayObj.day].push(bdayObj.name)})
+
+        // set local storage
         if (updatedBook.key == ''){
             localStorage.removeItem("bdayBook")
         }
