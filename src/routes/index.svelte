@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { bdayBookStore, calendarByMonth } from './../stores';
+	import { bdayBookStore } from './../stores';
 	import DayRow from '$lib/DayRow.svelte';
 	import MonthRow from '$lib/MonthRow.svelte';
 	import ScratchForm from '$lib/BirthdayForm.svelte';

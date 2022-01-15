@@ -1,18 +1,26 @@
 <script lang="ts">
+	import { DateConverter } from './../utils/dateConverter';
 
-	import { bdayBookStore } from './../stores';
+	import { bdayBookStore, calendarByDay } from './../stores';
 
 	let name: string;
 	let mo: number;
 	let day: number;
 
 	async function addBirthdays() {
+		const bdayObj = { name: name, month: mo, day: day };
 		// udpate the store, let the store update the database
 		bdayBookStore.update((bb) => {
-			bb.calendar[`${name}${mo}${day}`] = { name: name, month: mo, day: day };
+			bb.calendar[`${name}${mo}${day}`] = bdayObj;
 			return bb;
 		});
-		console.log(`bday bookstore after bday form submit: ${JSON.stringify($bdayBookStore)}`);
+		// console.log(`bday bookstore after bday form submit: ${JSON.stringify($bdayBookStore)}`);
+		calendarByDay.update((cal) => {
+			const dayOfYear = DateConverter.DayOfYear(mo.toString(), day.toString());
+			cal[dayOfYear] = [...cal[dayOfYear], bdayObj];
+			// console.log(`calbyDay after form submit ${JSON.stringify(get(calendarByDay))}`)
+			return cal;
+		});
 	}
 </script>
 

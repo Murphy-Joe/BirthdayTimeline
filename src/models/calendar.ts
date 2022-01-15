@@ -30,11 +30,13 @@ export class CalendarByMonth {
 
 export class CalendarByDays {
     constructor() {
-        for (let i = 1; i < 366; i++) {
+        for (let i = 1; i <= 366; i++) {
             this[i] = []
         }
     }
 }
+
+
 export interface CalendarItem {
     name: string
     month: number
