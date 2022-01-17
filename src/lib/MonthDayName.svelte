@@ -6,6 +6,8 @@ import { incrementHex } from "./../utils/hexConverter";
 	export let innerWidth;
 	export let monthsToDisplay;
 	export let monthColor;
+
+    let lastBdays = []
     
 </script>
 
@@ -26,6 +28,7 @@ import { incrementHex } from "./../utils/hexConverter";
 <div class="day">
 	{#each Object.values(calByMonthEntry[1]) as bdayObjList, i}
 		<div class="name-unit">
+            <!-- objects in last 7 days, br.repeat length, then obj.name -->
 			{#each bdayObjList as bdayObj}
                  {bdayObj.name}<br>
             {/each}
