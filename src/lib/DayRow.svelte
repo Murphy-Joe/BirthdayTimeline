@@ -3,6 +3,8 @@
 
 	import { calendarByDay, bdayBookStore, calByDay } from './../stores';
 	import { onMount } from 'svelte';
+  import { DaysPerMonth } from './../models/calendar';
+import { Months } from './../models/months';
 
 	export let monthsToDisplay;
 	export let innerWidth;
@@ -22,8 +24,8 @@
 </script>
 
 <div class="grid-container-year">
-	{#each Object.values($calendarByDay) as bdayObjectsList}
-		<div class="bday-symbol" style="width:{innerWidth / (monthsToDisplay * 30.15)}px">
+	{#each Object.values($calendarByDay) as bdayObjectsList, idx}
+		<div class="bday-symbol" style="width:{innerWidth / (monthsToDisplay * DateConverter.DaysInMonthFromDayOfYear(idx+1))}px">
 			{'*'.repeat(bdayObjectsList.length)}
 			<br />
 			{#each bdayObjectsList as bdayObj}

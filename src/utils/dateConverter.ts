@@ -29,4 +29,14 @@ export class DateConverter {
         // return dayOfYear > 59 ? dayOfYear - 1 : dayOfYear
         return dayOfYear
     }
+
+    static DaysInMonthFromDayOfYear = (dayOfYear: number): number => {
+        let dayOfMonth = dayOfYear
+        for (let i = 1; i <= 12; i++) {
+            dayOfMonth -= DaysPerMonth[Months[i]]["days"]
+            if (dayOfMonth < 1){
+                return DaysPerMonth[Months[i]]["days"]
+            }
+        }
+    }
 }
