@@ -21,6 +21,7 @@ import { Months } from './../models/months';
 			$calendarByDay[dayOfYear] = [...calByDay[dayOfYear], bdayObj];
 		});
 	});
+	//asdf
 </script>
 
 <div class="grid-container-year">
