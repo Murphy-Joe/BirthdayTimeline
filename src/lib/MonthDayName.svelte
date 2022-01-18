@@ -1,13 +1,23 @@
 <script lang="js">
-import { incrementHex } from "./../utils/hexConverter";
-
+import { DateConverter } from "./../utils/dateConverter";
 
 	export let calByMonthEntry;
 	export let innerWidth;
 	export let monthsToDisplay;
 	export let monthColor;
 
-    let lastBdays = []
+	let queue = []
+	function SlotForBday(bdayObj) {
+		 const dayOfYear = DateConverter.DayOfYear(bdayObj['month'], bdayObj['day'])
+            const filteredQueue = queue.filter(obj => obj.dayOfYear > (dayOfYear - 7))
+            queue = filteredQueue
+            bdayObj.dayOfYear = dayOfYear
+            bdayObj.lineNumber = filteredQueue.length
+            queue.push(bdayObj)
+			return filteredQueue.filter(bday => bday.dayOfYear > (dayOfYear-7) && bday.dayOfYear != dayOfYear).length
+	}
+
+    
     
 </script>
 
@@ -26,11 +36,13 @@ import { incrementHex } from "./../utils/hexConverter";
 </div>
 
 <div class="day">
+	<!-- going to switch to two column list of names, past bdays grayed out, 
+	future bdays brighter.  Hovering or touching a square will magnify that name and unhide DOB -->
 	{#each Object.values(calByMonthEntry[1]) as bdayObjList, i}
 		<div class="name-unit">
-            <!-- objects in last 7 days, br.repeat length, then obj.name -->
 			{#each bdayObjList as bdayObj}
-                 {bdayObj.name}<br>
+				{@html "<br>".repeat(SlotForBday(bdayObj))}{bdayObj.name}
+				<!-- {SlotForBday(bdayObj)} -->
             {/each}
 		</div>
 	{/each}
