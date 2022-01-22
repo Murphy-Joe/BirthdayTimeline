@@ -6,10 +6,11 @@
 	import Login from '$lib/Login.svelte';
 	import MonthDayName from '$lib/MonthDayName.svelte';
 import { incrementHex } from './../utils/hexConverter';
+import { onMount } from 'svelte';
 
 	// console.log(JSON.stringify($calendarByMonth))
 
-	const monthsToDisplay = 4;
+	let monthsToDisplay = 1;
 	let innerWidth: number;
 	let startingColor = "A0C8D6"
 	const colorPalette = [startingColor];
@@ -17,20 +18,20 @@ import { incrementHex } from './../utils/hexConverter';
 		startingColor = incrementHex(startingColor, 1000)
 		colorPalette.push(startingColor)
 	}
-	console.log(`pallette: ${colorPalette}`)
+
+	let yearGrid;
+	onMount(() => {
+		yearGrid.scrollLeft = 3000
+	})
 
 </script>
 
-<svelte:window bind:innerWidth />
+<svelte:window bind:innerWidth/>
 
 <Login />
+<input type=range max="12" min="1" bind:value={monthsToDisplay}>
 
-<!-- <div class="calendar-view">
-	<MonthRow {monthsToDisplay} {innerWidth} />
-	<DayRow {monthsToDisplay} {innerWidth} />
-</div> -->
-
-<div class="overflow-container">
+<div class="overflow-container"  bind:this={yearGrid}>
 	<div class="year-grid">
 		{#each Object.entries($calByMonthStore) as monthAtZero_DaysObjAtOne, i}
 			<div class="month-day-name" style="width:{innerWidth / monthsToDisplay}px">
@@ -63,13 +64,6 @@ import { incrementHex } from './../utils/hexConverter';
 		justify-items: center;
 		height: 160px;
 		/* border: 1px solid purple; */
-	}
-
-	.month-day-name {
-	}
-
-	.calendar-view {
-		overflow-x: scroll;
 	}
 
 	.calendar-data {

@@ -31,12 +31,9 @@ bdayBookStore.subscribe((updatedBook) => {
     // Translate bdayBook calendar (by ID) to calByDay (day date)
     // obj is {day:bdayObj} by day of year, values is list[bdayObj] 
     calByMonth = new CalendarByMonth()
-    console.log(`in bbook update - calbymonth before: ${JSON.stringify(calByMonth)}`)
     Object.values(updatedBook.calendar).forEach(bdayObj => {
-        console.log('in store updating calByMonth after bdayBook action')
         calByMonth[Months[bdayObj.month]][bdayObj.day].push(bdayObj)
     })
-    console.log(`in bbook update - calbymonth after: ${JSON.stringify(calByMonth)}`)
     calByMonthStore.set(calByMonth)
 
     if (browser) {
