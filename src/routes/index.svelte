@@ -1,41 +1,45 @@
 <script lang="ts">
 	import { bdayBookStore, calByMonthStore } from './../stores';
-	import DayRow from '$lib/DayRow.svelte';
-	import MonthRow from '$lib/MonthRow.svelte';
 	import ScratchForm from '$lib/BirthdayForm.svelte';
 	import Login from '$lib/Login.svelte';
 	import MonthDayName from '$lib/MonthDayName.svelte';
-import { incrementHex } from './../utils/hexConverter';
-import { onMount } from 'svelte';
+	import { incrementHex } from './../utils/hexConverter';
+	import { onMount } from 'svelte';
+	import { browser } from '$app/env';
+	import { Months } from './../models/months';
 
 	// console.log(JSON.stringify($calendarByMonth))
 
 	let monthsToDisplay = 1;
 	let innerWidth: number;
-	let startingColor = "A0C8D6"
+	let startingColor = 'A0C8D6';
 	const colorPalette = [startingColor];
 	for (let i = 0; i < 11; i++) {
-		startingColor = incrementHex(startingColor, 1000)
-		colorPalette.push(startingColor)
+		startingColor = incrementHex(startingColor, 1000);
+		colorPalette.push(startingColor);
 	}
-
-	let yearGrid;
+	const currentMonthName = Months[(new Date('3/17').getMonth())+1]
+	console.log(`monthName: ${currentMonthName}`)
 	onMount(() => {
-		yearGrid.scrollLeft = 3000
-	})
-
+		document.getElementById(currentMonthName).scrollIntoView()
+	});
 </script>
 
-<svelte:window bind:innerWidth/>
+<svelte:window bind:innerWidth />
 
 <Login />
-<input type=range max="12" min="1" bind:value={monthsToDisplay}>
+<input type="range" max="12" min="1" bind:value={monthsToDisplay} />
 
-<div class="overflow-container"  bind:this={yearGrid}>
+<div class="overflow-container" id="of">
 	<div class="year-grid">
 		{#each Object.entries($calByMonthStore) as monthAtZero_DaysObjAtOne, i}
-			<div class="month-day-name" style="width:{innerWidth / monthsToDisplay}px">
-				<MonthDayName calByMonthEntry={monthAtZero_DaysObjAtOne} {monthsToDisplay} {innerWidth} monthColor={colorPalette[i]} />
+			<div class="month-day-name" id="{Months[i+1]}" style="width:{innerWidth / monthsToDisplay}px">
+				<MonthDayName
+					calByMonthEntry={monthAtZero_DaysObjAtOne}
+					{monthsToDisplay}
+					{innerWidth}
+					monthColor={colorPalette[i]}
+				/>
 			</div>
 		{/each}
 	</div>
@@ -56,14 +60,26 @@ import { onMount } from 'svelte';
 
 <style>
 	.overflow-container {
+		scroll-snap-type: x mandatory;
+		-webkit-overflow-scrolling: touch;
 		overflow-x: scroll;
+		width: 100vw;
+		display: flex;
+	}
+	.month-day-name {
+		scroll-snap-align: center;
+		scroll-snap-stop: always;
+		width: 100%;
+		flex: 1 0 auto;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
 	}
 	.year-grid {
 		display: grid;
 		grid-template-columns: repeat(12, auto);
 		justify-items: center;
 		height: 160px;
-		/* border: 1px solid purple; */
 	}
 
 	.calendar-data {

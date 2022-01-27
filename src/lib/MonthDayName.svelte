@@ -1,5 +1,6 @@
 <script lang="js">
 import { onMount } from "svelte";
+import { createEventDispatcher, element } from "svelte/internal";
 
 import { Months } from "./../models/months";
 
@@ -10,7 +11,7 @@ import { DateConverter } from "./../utils/dateConverter";
 	export let monthsToDisplay;
 	export let monthColor;
 
-	const today = new Date("3/17")
+	const today = new Date()
 
 	let queue = []
 	function SlotForBday(bdayObj) {
@@ -26,15 +27,9 @@ import { DateConverter } from "./../utils/dateConverter";
 	const todayCheck = (idx) => {
 		return today.getDate() == (idx+1) && (today.getMonth()+1) == parseInt(Months[calByMonthEntry[0]])
 	}    
-
-	let monthDiv;
-	onMount(() => {
-		monthDiv.scrollTo(3000,0)
-	})
-    
 </script>
 
-<div class="month" style="background-color: #{monthColor}"  bind:this={monthDiv}>
+<div class="month" style="background-color: #{monthColor}">
 	{calByMonthEntry[0]}
 </div>
 
@@ -42,7 +37,8 @@ import { DateConverter } from "./../utils/dateConverter";
 	{#each Object.values(calByMonthEntry[1]) as bdayObjList, i}
         {#if bdayObjList.length > 0}
             <div class="day-unit" 
-			class:today="{todayCheck(i)}" 
+			class:today="{todayCheck(i)}"
+			id={(DateConverter.DayOfYear(Months[calByMonthEntry[0]], (i+1).toString())).toString()}
 			style="background-color: #{monthColor}; border: 1px solid gray;"/>
         {:else}
             <div 
