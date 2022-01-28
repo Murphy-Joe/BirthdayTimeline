@@ -1,14 +1,8 @@
 <script lang="js">
-import { onMount } from "svelte";
-import { createEventDispatcher, element } from "svelte/internal";
-
 import { Months } from "./../models/months";
-
 import { DateConverter } from "./../utils/dateConverter";
 
 	export let calByMonthEntry;
-	export let innerWidth;
-	export let monthsToDisplay;
 	export let monthColor;
 
 	const today = new Date()

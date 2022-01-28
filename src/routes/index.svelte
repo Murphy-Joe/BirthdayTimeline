@@ -5,7 +5,6 @@
 	import MonthDayName from '$lib/MonthDayName.svelte';
 	import { incrementHex } from './../utils/hexConverter';
 	import { onMount } from 'svelte';
-	import { browser } from '$app/env';
 	import { Months } from './../models/months';
 
 	// console.log(JSON.stringify($calendarByMonth))
@@ -18,10 +17,8 @@
 		startingColor = incrementHex(startingColor, 1000);
 		colorPalette.push(startingColor);
 	}
-	const currentMonthName = Months[(new Date('3/17').getMonth())+1]
-	console.log(`monthName: ${currentMonthName}`)
+
 	onMount(() => {
-		document.getElementById(currentMonthName).scrollIntoView()
 	});
 </script>
 
@@ -31,13 +28,11 @@
 <input type="range" max="12" min="1" bind:value={monthsToDisplay} />
 
 <div class="overflow-container" id="of">
-	<div class="year-grid">
+	<div class="year-grid" id="yg">
 		{#each Object.entries($calByMonthStore) as monthAtZero_DaysObjAtOne, i}
 			<div class="month-day-name" id="{Months[i+1]}" style="width:{innerWidth / monthsToDisplay}px">
 				<MonthDayName
 					calByMonthEntry={monthAtZero_DaysObjAtOne}
-					{monthsToDisplay}
-					{innerWidth}
 					monthColor={colorPalette[i]}
 				/>
 			</div>
